@@ -1,4 +1,4 @@
-package com.tangce.fastcode.router.exception;
+package com.tangce.fastcode.routerlib.exception;
 
 /**
  * contains two types of not found<br>

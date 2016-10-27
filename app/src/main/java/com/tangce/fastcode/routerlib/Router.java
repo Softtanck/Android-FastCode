@@ -1,16 +1,16 @@
-package com.tangce.fastcode.router;
+package com.tangce.fastcode.routerlib;
 
 import android.content.Context;
 import android.net.Uri;
 
-import com.tangce.fastcode.router.exception.NotFoundException;
-import com.tangce.fastcode.router.module.RouteCreator;
-import com.tangce.fastcode.router.route.ActivityRoute;
-import com.tangce.fastcode.router.route.BrowserRoute;
-import com.tangce.fastcode.router.route.EmptyActivityRoute;
-import com.tangce.fastcode.router.route.IActivityRoute;
-import com.tangce.fastcode.router.route.IRoute;
-import com.tangce.fastcode.router.route.RouteCallback;
+import com.tangce.fastcode.routerlib.exception.NotFoundException;
+import com.tangce.fastcode.routerlib.module.RouteCreator;
+import com.tangce.fastcode.routerlib.route.ActivityRoute;
+import com.tangce.fastcode.routerlib.route.BrowserRoute;
+import com.tangce.fastcode.routerlib.route.EmptyActivityRoute;
+import com.tangce.fastcode.routerlib.route.IActivityRoute;
+import com.tangce.fastcode.routerlib.route.IRoute;
+import com.tangce.fastcode.routerlib.route.RouteCallback;
 
 
 /**

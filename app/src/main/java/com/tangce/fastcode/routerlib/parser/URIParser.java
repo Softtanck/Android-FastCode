@@ -1,4 +1,4 @@
-package com.tangce.fastcode.router.parser;
+package com.tangce.fastcode.routerlib.parser;
 
 import android.net.Uri;
 

@@ -1,8 +1,8 @@
-package com.tangce.fastcode.router;
+package com.tangce.fastcode.routerlib;
 
-import com.tangce.fastcode.router.module.RouteCreator;
-import com.tangce.fastcode.router.module.RouteMap;
-import com.tangce.fastcode.router.route.RouteCallback;
+import com.tangce.fastcode.routerlib.module.RouteCreator;
+import com.tangce.fastcode.routerlib.module.RouteMap;
+import com.tangce.fastcode.routerlib.route.RouteCallback;
 
 import java.util.ArrayList;
 import java.util.HashMap;

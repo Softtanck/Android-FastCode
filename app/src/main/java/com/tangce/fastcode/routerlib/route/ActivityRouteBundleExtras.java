@@ -1,4 +1,4 @@
-package com.tangce.fastcode.router.route;
+package com.tangce.fastcode.routerlib.route;
 
 import android.os.Bundle;
 import android.os.Parcel;

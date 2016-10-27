@@ -1,9 +1,9 @@
-package com.tangce.fastcode.router.route;
+package com.tangce.fastcode.routerlib.route;
 
 import android.content.Context;
 import android.net.Uri;
 
-import com.tangce.fastcode.router.exception.NotFoundException;
+import com.tangce.fastcode.routerlib.exception.NotFoundException;
 
 /**
  * Created by admin on 16/9/5.

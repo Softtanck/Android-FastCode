@@ -1,4 +1,4 @@
-package com.tangce.fastcode.router.route;
+package com.tangce.fastcode.routerlib.route;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,11 +6,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.tangce.fastcode.router.RouteManager;
-import com.tangce.fastcode.router.Utils;
-import com.tangce.fastcode.router.exception.NotFoundException;
-import com.tangce.fastcode.router.module.RouteMap;
-import com.tangce.fastcode.router.parser.URIParser;
+import com.tangce.fastcode.routerlib.RouteManager;
+import com.tangce.fastcode.routerlib.Utils;
+import com.tangce.fastcode.routerlib.exception.NotFoundException;
+import com.tangce.fastcode.routerlib.module.RouteMap;
+import com.tangce.fastcode.routerlib.parser.URIParser;
 
 import java.util.Map;
 import java.util.Set;
