@@ -9,6 +9,8 @@ package com.tangce.fastcode;
 import com.tangce.fastcode.utils.LogUtils;
 
 import java.io.IOException;
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
 
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
@@ -35,9 +37,13 @@ public abstract class ApiCallback<T> extends Subscriber<T> {
             msg = httpException.getMessage();
             if (httpCode == 504) {
                 msg = "网络不给力";
-            } else if (httpCode == 502 || httpCode == 404) {
+            } else if (httpCode == 502 || httpCode == 404 || httpCode == 500) {
                 msg = "服务器异常，请稍后再试";
             }
+        } else if (e instanceof SocketTimeoutException) {
+            msg = "网络中断，请检查您的网络状态";
+        } else if (e instanceof ConnectException) {
+            msg = "网络中断，请检查您的网络状态";
         } else {
             msg = e.getMessage();
         }

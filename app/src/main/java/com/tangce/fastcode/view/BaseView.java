@@ -1,5 +1,7 @@
 package com.tangce.fastcode.view;
 
+import com.tangce.fastcode.BaseActivity;
+
 /**
  * Created by Tanck on 11/2/2016.
  * <p>
@@ -59,5 +61,12 @@ public interface BaseView<M> {
      * @param tag
      */
     void onComplete(String tag);
+
+    /**
+     * get context
+     *
+     * @return
+     */
+    BaseActivity getContextForPresenter();
 
 }

@@ -37,6 +37,11 @@ public abstract class BaseActivity<P extends BasePresenter, M> extends AppCompat
     }
 
     @Override
+    public BaseActivity getContextForPresenter() {
+        return this;
+    }
+
+    @Override
     public void onDataSuccess(M data) {
 
     }

@@ -11,7 +11,7 @@ import com.tangce.fastcode.utils.LogUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity<M> extends BaseActivity<MainPresenter, M> {
+public class MainActivity extends BaseActivity<MainPresenter, Object>  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +42,14 @@ public class MainActivity<M> extends BaseActivity<MainPresenter, M> {
 
 
     @Override
-    public void onDataSuccess(String tag, M data) {
+    public void onDataSuccess(String tag, Object data) {
         LogUtils.d("tag:" + tag);
         LoginResponse response = (LoginResponse) data;
         LogUtils.d(response.getDefaultVehicleIcon());
     }
 
     @Override
-    public void onDataSuccess(M data) {
+    public void onDataSuccess(Object data) {
         LogUtils.d("no tag");
     }
 
@@ -68,4 +68,14 @@ public class MainActivity<M> extends BaseActivity<MainPresenter, M> {
     public void onComplete(String tag) {
         LogUtils.d("onComplete:" + tag);
     }
+
+//    @Override
+//    public void needProgressShow() {
+//        LogUtils.d("needProgressShow");
+//    }
+//
+//    @Override
+//    public void needProgressDismiss() {
+//        LogUtils.d("needProgressDismiss");
+//    }
 }
