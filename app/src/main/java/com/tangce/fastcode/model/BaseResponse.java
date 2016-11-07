@@ -8,15 +8,16 @@ package com.tangce.fastcode.model;
 public class BaseResponse<T> {
     private String code;
     private String desc;
-    private String tag;
+    private String token;
     private T msg;
 
-    public String getTag() {
-        return tag;
+
+    public String getToken() {
+        return token;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getCode() {

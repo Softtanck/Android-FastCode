@@ -31,6 +31,13 @@ public class BasePresenter<V extends BaseView> implements ProgressCancelListener
 
     private CompositeSubscription mCompositeSubscription;
 
+    // save mToken
+    private String mToken;
+
+    public String getToken() {
+        return mToken;
+    }
+
     public void attachView(V view) {
         this.mView = view;
         if (view instanceof ProgressDialogCustomListener)
@@ -109,6 +116,7 @@ public class BasePresenter<V extends BaseView> implements ProgressCancelListener
 //            if (baseResponse.getCode().equals("0000")) {
 //                throw new ApiException(100);
 //            }
+            mToken = baseResponse.getToken();
             return baseResponse.getData();
         }
     }

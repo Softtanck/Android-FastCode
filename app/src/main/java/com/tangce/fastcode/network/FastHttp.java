@@ -4,11 +4,13 @@ import android.text.TextUtils;
 
 import com.tangce.fastcode.utils.LogUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -27,7 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class FastHttp {
 
-    private static final boolean DEBUG = true;
+    public static final boolean DEBUG = true;
 
     private static final long DEFAULT_TIMEOUT = 5;// default time out
 
@@ -172,6 +174,25 @@ public class FastHttp {
 
     public static <T extends Object> T create(Class<T> clz) {
         return FastHttp.getInstance().retrofit.create(clz);
+    }
+
+
+    public static RequestBody stringToRequestBody(String data) {
+        return RequestBody.create(MediaType.parse("text/plain"), data);
+    }
+
+    public static RequestBody imgToRequestBody(String path) {
+        File file = new File(path);
+        if (!file.exists())
+            throw new RuntimeException("the image not found");
+        return RequestBody.create(MediaType.parse("image/png"), new File(path));
+    }
+
+
+    public static RequestBody imgToRequestBody(File file) {
+        if (!file.exists())
+            throw new RuntimeException("the image not found");
+        return RequestBody.create(MediaType.parse("image/png"), file);
     }
 
 //    public static <T> T create(Class<T> clz, Subscriber<T> subscriber, Observable observable){
