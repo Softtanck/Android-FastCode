@@ -1,13 +1,17 @@
 package com.tangce.fastcode;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.tangce.fastcode.network.FastHttp;
-import com.tangce.fastcode.routerlib.Router;
+import com.tangce.fastcode.api.LoginApi;
+import com.tangce.fastcode.model.LoginResponse;
+import com.tangce.fastcode.presenter.MainPresenter;
+import com.tangce.fastcode.utils.LogUtils;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.HashMap;
+import java.util.Map;
+
+public class MainActivity<M> extends BaseActivity<MainPresenter, M> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,8 +19,53 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    @Override
+    MainPresenter createPresenter() {
+        return new MainPresenter(this);
+    }
+
+
     public void login(View view) {
-        FastHttp.test(App.class);
-        Router.create("Tanck://login").open(MainActivity.this);
+//        FastHttp.test(App.class);
+        Map<String, Object> param = new HashMap<>();
+        param.put("userName", "18380473706");
+        param.put("password", "f8EFUs+YEQckfzGEtNZ/JMyvTPPJVC5s9NquQ5UAJQWrXiaWN/XAwZ5EorsIqvKq0WYCrS1xkFvy\n" +
+                "                                                              rdZ+OZYysX9l/Txm/nq4q4wJ75xlnBBTR3ZtFoeztChJrCprEhFF3GF4jGGv41UkagCxravaiWcg\n" +
+                "                                                              q/AJVoTvmNmyHv3PWtg=");
+        param.put("imei", "422013");
+        mPresenter.start(LoginApi.login(param), "1");
+        mPresenter.start(LoginApi.login(param), "2");
+        mPresenter.start(LoginApi.login(param), "3");
+        mPresenter.start(LoginApi.login(param));
+//        Router.create("Tanck://login").open(MainActivity.this);
+    }
+
+
+    @Override
+    public void onDataSuccess(String tag, M data) {
+        LogUtils.d("tag:" + tag);
+        LoginResponse response = (LoginResponse) data;
+        LogUtils.d(response.getDefaultVehicleIcon());
+    }
+
+    @Override
+    public void onDataSuccess(M data) {
+        LogUtils.d("no tag");
+    }
+
+    @Override
+    public void onDataFailed(String reason) {
+
+    }
+
+    @Override
+    public void onNoNetWork() {
+
+
+    }
+
+    @Override
+    public void onComplete(String tag) {
+        LogUtils.d("onComplete:" + tag);
     }
 }

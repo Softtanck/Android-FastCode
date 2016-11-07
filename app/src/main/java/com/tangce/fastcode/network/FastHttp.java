@@ -2,30 +2,37 @@ package com.tangce.fastcode.network;
 
 import android.text.TextUtils;
 
-import com.tangce.fastcode.App;
+import com.tangce.fastcode.utils.LogUtils;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okio.Buffer;
 import retrofit2.CallAdapter;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.Subscriber;
 
 /**
  * Created by Tanck on 10/27/2016.
- * <p/>
+ * <p>
  * Describe: the fastHttp utils can get response from internet
  */
 public class FastHttp {
 
+    private static final boolean DEBUG = true;
+
     private static final long DEFAULT_TIMEOUT = 5;// default time out
 
-    private static final String DEFAULT_URL = "https://github.com/q422013";
+    //    private static final String DEFAULT_URL = "https://github.com/q422013";
+    private static final String DEFAULT_URL = "http://120.27.92.247:10001/";
 
     private static FastHttp instance;
 
@@ -61,8 +68,21 @@ public class FastHttp {
      */
     private void init() {
         OkHttpClient.Builder okClient = getOkHttpClient();
+        if (DEBUG) // is debug mode show request info 
+            okClient.addInterceptor(new Interceptor() {
+                @Override
+                public Response intercept(Chain chain) throws IOException {
+                    Request request = chain.request();
+                    LogUtils.d("request url:" + request.url() + "\n" + bodyToString(request.body()));
+                    Response response = chain.proceed(request);
+                    LogUtils.d("response:" + response.body().string());
+                    return chain.proceed(request);
+                }
+            });
         okClient.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
-        Retrofit.Builder builder = new Retrofit.Builder().client(okClient.build()).baseUrl(HttpUrl.parse(mBaseUrl));
+        Retrofit.Builder builder = new Retrofit.Builder().client(okClient.build()).baseUrl(HttpUrl.parse(getBaseUrl()));
+        mCallAdapter = getCallAdapter();
+        mConverter = getConverter();
         if (null != mCallAdapter)
             builder.addCallAdapterFactory(mCallAdapter);
         if (null != mConverter)
@@ -70,12 +90,18 @@ public class FastHttp {
         retrofit = builder.build();
     }
 
-    public static <T> T create(Class<T> clz) {
-        return FastHttp.getInstance().retrofit.create(clz);
-    }
-
-    public static <T> T create(Class<T> clz, Subscriber<T> subscriber, Observable observable){
-
+    private String bodyToString(final RequestBody request) {
+        try {
+            final RequestBody copy = request;
+            final Buffer buffer = new Buffer();
+            if (copy != null)
+                copy.writeTo(buffer);
+            else
+                return "";
+            return buffer.readUtf8();
+        } catch (final IOException e) {
+            return "did not work";
+        }
     }
 
 
@@ -138,7 +164,17 @@ public class FastHttp {
     }
 
     private String getBaseUrl() {
+        if (TextUtils.isEmpty(mBaseUrl))
+            return DEFAULT_URL;
         return mBaseUrl;
     }
 
+
+    public static <T extends Object> T create(Class<T> clz) {
+        return FastHttp.getInstance().retrofit.create(clz);
+    }
+
+//    public static <T> T create(Class<T> clz, Subscriber<T> subscriber, Observable observable){
+//
+//    }
 }
