@@ -15,7 +15,7 @@ import java.net.SocketTimeoutException;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 
-public abstract class ApiCallback<T> extends Subscriber<T> {
+public abstract class FcApiCallback<T> extends Subscriber<T> {
 
     protected int httpCode;
 

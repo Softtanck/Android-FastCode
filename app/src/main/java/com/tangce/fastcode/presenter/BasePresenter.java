@@ -1,6 +1,6 @@
 package com.tangce.fastcode.presenter;
 
-import com.tangce.fastcode.ApiCallback;
+import com.tangce.fastcode.FcApiCallback;
 import com.tangce.fastcode.model.BaseResponse;
 import com.tangce.fastcode.presenter.progress.ProgressCancelListener;
 import com.tangce.fastcode.presenter.progress.ProgressDialogCustomListener;
@@ -146,7 +146,7 @@ public class BasePresenter<V extends BaseView> implements ProgressCancelListener
      * @param o
      */
     public <T> void start(Observable<T> o) {
-        addSubscription(o, new ApiCallback<T>() {
+        addSubscription(o, new FcApiCallback<T>() {
 
             @Override
             public void onStart() {
@@ -179,7 +179,7 @@ public class BasePresenter<V extends BaseView> implements ProgressCancelListener
      * @param tag
      */
     public <T> void start(Observable<T> o, final String tag) {
-        addSubscription(o, new ApiCallback<T>() {
+        addSubscription(o, new FcApiCallback<T>() {
             @Override
             public void onStart() {
                 showProgressDialog();

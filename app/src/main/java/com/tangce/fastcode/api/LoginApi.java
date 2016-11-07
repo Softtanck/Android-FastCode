@@ -21,21 +21,6 @@ public class LoginApi {
         Observable<BaseResponse<LoginResponse>> login(@Body Map<String, Object> body);
     }
 
-//    private static LoginApi loginApi;
-//
-//    private LoginApi() {
-//    }
-//
-//    public static LoginApi getInstance() {
-//        if (null == loginApi) {
-//            synchronized (LoginApi.class) {
-//                if (null == loginApi)
-//                    loginApi = new LoginApi();
-//            }
-//        }
-//        return loginApi;
-//    }
-
     public static Observable<BaseResponse<LoginResponse>> login(Map<String, Object> body) {
         return FastHttp.create(LoginService.class).login(body);
     }
