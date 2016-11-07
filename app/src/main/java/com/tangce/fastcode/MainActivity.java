@@ -18,7 +18,7 @@ import java.util.Map;
 
 import okhttp3.RequestBody;
 
-public class MainActivity extends BaseActivity<MainPresenter, Object> {
+public class MainActivity extends BaseActivity<MainPresenter, Object>  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity<MainPresenter, Object> {
 
     public void login(View view) {
         Map<String, Object> param = new HashMap<>();
-        param.put("userName", "18380473706");
+        param.put("userName", "183****3706");
         param.put("password", "f8EFUs+YEQckfzGEtNZ/JMyvTPPJVC5s9NquQ5UAJQWrXiaWN/XAwZ5EorsIqvKq0WYCrS1xkFvy\n" +
                 "                                                              rdZ+OZYysX9l/Txm/nq4q4wJ75xlnBBTR3ZtFoeztChJrCprEhFF3GF4jGGv41UkagCxravaiWcg\n" +
                 "                                                              q/AJVoTvmNmyHv3PWtg=");
