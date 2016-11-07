@@ -33,7 +33,6 @@ public class MainActivity extends BaseActivity<MainPresenter, Object> {
 
 
     public void login(View view) {
-//        FastHttp.test(App.class);
         Map<String, Object> param = new HashMap<>();
         param.put("userName", "18380473706");
         param.put("password", "f8EFUs+YEQckfzGEtNZ/JMyvTPPJVC5s9NquQ5UAJQWrXiaWN/XAwZ5EorsIqvKq0WYCrS1xkFvy\n" +
