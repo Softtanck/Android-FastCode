@@ -111,5 +111,5 @@ the network call you can overwrite:
 ## Custom ProgressDialog
 you just implement ProgressDialogCustomListener.
 
-# License Apache
-2016-2017 copy right @Tanck 
+# License
+Apache 2016-2017 copy right @Tanck 
