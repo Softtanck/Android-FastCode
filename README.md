@@ -41,6 +41,8 @@ public class MainActivity extends BaseActivity<MainPresenter, Object> {
 ## Network Usage:
 Create network API class,for example:
 ```java
+
+// normal post api
 public class LoginApi {
     private interface LoginService {
         @POST("csh-interface/endUser/login.jhtml")
@@ -51,6 +53,19 @@ public class LoginApi {
         return FastHttp.create(LoginService.class).login(body);
     }
 
+}
+
+// upload file/image and other parameters post api
+public class EditUserInfoApi {
+    private interface EditUserInfoService {
+        @Multipart
+        @POST("csh-interface/endUser/editUserPhoto.jhtml")
+        Observable<BaseResponse<ModifyUserPhotoResponse>> modifyUserPhoto(@PartMap Map<String, RequestBody> params);
+    }
+
+    public static Observable<BaseResponse<ModifyUserPhotoResponse>> modifyUserPhoto(Map<String, RequestBody> params) {
+        return FastHttp.create(EditUserInfoService.class).modifyUserPhoto(params);
+    }
 }
 ```
 
