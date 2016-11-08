@@ -73,7 +73,7 @@ in your activity you can call :
         Map<String, RequestBody> up = new HashMap<>();
         up.put("userId", FastHttp.stringToRequestBody("1"));
         up.put("token", FastHttp.stringToRequestBody(mPresenter.getToken()));
-        up.put("photo\"; filename=\"" + file.getName(), FastHttp.imgToRequestBody(file));
+        up.put("photo\"; filename=\"" + file.getName(), FastHttp.imgToRequestBody(file)); // support String path or File object.
         mPresenter.start(EditUserInfoApi.modifyUserPhoto(up), "4");// tag :4
         
 ```
