@@ -1,5 +1,5 @@
-# Android-FastCode(Route+Retrofit2.0+RxJava+OkHttp+MVP)
-a fast project for android. the project support intercept activity(Route) and you can custom config your intent rule and support access remote server data convert to gson. you can implement yourself custom progressdialog on requesting data.
+# Android-FastCode(Router+Retrofit2.0+RxJava+OkHttp+MVP)
+a fast project for android. the project support intercept activity(Router) and you can custom config your intent rule and support access remote server data convert to gson. you can implement yourself custom progressdialog on requesting data.
 
 # How to use:
 ## App Global
@@ -142,9 +142,9 @@ you just implement ProgressDialogCustomListener.
 2016-2017 copy right @Tanck<br/>
 Licensed under the Apache License, Version 2.0 (the "License");<br/>
 you may not use this file except in compliance with the License.<br/>
-You may obtain a copy of the License at<br/><br/>
+You may obtain a copy of the License at<br/>
 
-http://www.apache.org/licenses/LICENSE-2.0<br/><br/>
+http://www.apache.org/licenses/LICENSE-2.0<br/>
 
 Unless required by applicable law or agreed to in writing, software<br/>
 distributed under the License is distributed on an "AS IS" BASIS,<br/>
