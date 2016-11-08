@@ -41,6 +41,8 @@ public class MainActivity extends BaseActivity<MainPresenter, Object> {
 ## Network Usage:
 Create network API class,for example:
 ```java
+
+// normal post api
 public class LoginApi {
     private interface LoginService {
         @POST("csh-interface/endUser/login.jhtml")
@@ -51,6 +53,19 @@ public class LoginApi {
         return FastHttp.create(LoginService.class).login(body);
     }
 
+}
+
+// upload file/image and other parameters post api
+public class EditUserInfoApi {
+    private interface EditUserInfoService {
+        @Multipart
+        @POST("csh-interface/endUser/editUserPhoto.jhtml")
+        Observable<BaseResponse<ModifyUserPhotoResponse>> modifyUserPhoto(@PartMap Map<String, RequestBody> params);
+    }
+
+    public static Observable<BaseResponse<ModifyUserPhotoResponse>> modifyUserPhoto(Map<String, RequestBody> params) {
+        return FastHttp.create(EditUserInfoService.class).modifyUserPhoto(params);
+    }
 }
 ```
 
@@ -124,5 +139,16 @@ the network call you can overwrite:
 you just implement ProgressDialogCustomListener.
 
 # License
-Apache 2016-2017 copy right @Tanck 
+2016-2017 copy right @Tanck<br/>
+Licensed under the Apache License, Version 2.0 (the "License");<br/>
+you may not use this file except in compliance with the License.<br/>
+You may obtain a copy of the License at<br/><br/>
+
+http://www.apache.org/licenses/LICENSE-2.0<br/><br/>
+
+Unless required by applicable law or agreed to in writing, software<br/>
+distributed under the License is distributed on an "AS IS" BASIS,<br/>
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<br/>
+See the License for the specific language governing permissions and<br/>
+limitations under the License.
 
