@@ -56,14 +56,26 @@ public class LoginApi {
 
 in your activity you can call :
 ```java
+        //normal post param
         Map<String, Object> param = new HashMap<>();
         param.put("userName", "183****3706");
         param.put("password", "password");
         param.put("imei", "422013");
-        mPresenter.start(LoginApi.login(param), "1");
-        mPresenter.start(LoginApi.login(param), "2");
-        mPresenter.start(LoginApi.login(param), "3");
-        mPresenter.start(LoginApi.login(param));
+        mPresenter.start(LoginApi.login(param), "1");// tag :1
+        mPresenter.start(LoginApi.login(param), "2");// tag :2
+        mPresenter.start(LoginApi.login(param), "3");// tag:3
+        mPresenter.start(LoginApi.login(param));// no tag
+        
+        
+        // upload file/image
+        Map<String, RequestBody> up = new HashMap<>();
+        up.put("userId", FastHttp.stringToRequestBody("1"));
+        up.put("token", FastHttp.stringToRequestBody(mPresenter.getToken()));
+        String path = Environment.getExternalStorageDirectory() + File.separator + "Android" + File.separator + "print.png";
+        File file = new File(path);
+        up.put("photo\"; filename=\"" + file.getName(), FastHttp.imgToRequestBody(file));
+        mPresenter.start(EditUserInfoApi.modifyUserPhoto(up), "4");// tag :4
+        
 ```
 the network call you can overwrite:
 ```java 
