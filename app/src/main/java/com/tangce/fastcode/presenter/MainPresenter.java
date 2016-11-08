@@ -13,9 +13,4 @@ public class MainPresenter extends BasePresenter {
         attachView(view);
     }
 
-
-    public void cancel() {
-        onUnsubscribe();
-    }
-
 }

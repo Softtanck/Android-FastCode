@@ -212,4 +212,12 @@ public class BasePresenter<V extends BaseView> implements ProgressCancelListener
             }
         });
     }
+
+
+    /**
+     * cancel http request and unsubcribe
+     */
+    public void cancel() {
+        onUnsubscribe();
+    }
 }
