@@ -68,11 +68,11 @@ in your activity you can call :
         
         
         // upload file/image
+        String path = Environment.getExternalStorageDirectory() + File.separator + "Android" + File.separator + "print.png";
+        File file = new File(path);
         Map<String, RequestBody> up = new HashMap<>();
         up.put("userId", FastHttp.stringToRequestBody("1"));
         up.put("token", FastHttp.stringToRequestBody(mPresenter.getToken()));
-        String path = Environment.getExternalStorageDirectory() + File.separator + "Android" + File.separator + "print.png";
-        File file = new File(path);
         up.put("photo\"; filename=\"" + file.getName(), FastHttp.imgToRequestBody(file));
         mPresenter.start(EditUserInfoApi.modifyUserPhoto(up), "4");// tag :4
         
