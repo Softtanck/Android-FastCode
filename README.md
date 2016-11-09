@@ -1,4 +1,4 @@
-博客链接:http://blog.csdn.net/u010316858/article/details/52606465(对该框架进行详细说明)
+博客链接:http://blog.csdn.net/u010316858/article/details/52606465 (对该框架进行详细说明)
 
 # Android-FastCode(Router+Retrofit2.0+RxJava+OkHttp+MVP)
 a fast project for android. the project support intercept activity(Router) and you can custom config your intent rule and support access remote server data convert to gson. you can implement yourself custom progressdialog on requesting data.
