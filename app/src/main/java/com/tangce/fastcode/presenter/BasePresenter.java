@@ -1,5 +1,8 @@
 package com.tangce.fastcode.presenter;
 
+import android.text.TextUtils;
+import android.util.SparseArray;
+
 import com.tangce.fastcode.FcApiCallback;
 import com.tangce.fastcode.model.BaseResponse;
 import com.tangce.fastcode.presenter.progress.ProgressCancelListener;
@@ -9,6 +12,7 @@ import com.tangce.fastcode.view.BaseView;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
@@ -30,6 +34,8 @@ public class BasePresenter<V extends BaseView> implements ProgressCancelListener
     protected ProgressDialogCustomListener mCustomListener;
 
     private CompositeSubscription mCompositeSubscription;
+
+    private SparseArray<Subscription> mSubs = new SparseArray<>();
 
     // save mToken
     private String mToken;
@@ -54,14 +60,21 @@ public class BasePresenter<V extends BaseView> implements ProgressCancelListener
 
     public void detachView() {
         this.mView = null;
-        onUnsubscribe();
+        onUnsubscribe(null);
     }
 
 
     //RXjava un for not oom
-    protected void onUnsubscribe() {
+    protected void onUnsubscribe(String tag) {
         if (mCompositeSubscription != null && mCompositeSubscription.hasSubscriptions()) {
-            mCompositeSubscription.unsubscribe();
+            if (TextUtils.isEmpty(tag))
+                mCompositeSubscription.unsubscribe();
+            else {
+                int key = tag.hashCode();
+                Subscription temp = mSubs.get(key);
+                mCompositeSubscription.remove(temp);
+                mSubs.remove(key);
+            }
         }
     }
 
@@ -69,38 +82,46 @@ public class BasePresenter<V extends BaseView> implements ProgressCancelListener
     /**
      * add event
      *
+     * @param tag
      * @param observable
      * @param subscriber
      * @param <T>
      */
-    protected <T> void addSubscription(Observable<T> observable, Subscriber<T> subscriber) {
+    protected <T> void addSubscription(String tag, Observable<T> observable, Subscriber<T> subscriber) {
         if (mCompositeSubscription == null) {
             mCompositeSubscription = new CompositeSubscription();
         }
-        mCompositeSubscription.add(observable
-                .map(new HttpResultFunc())
+        Subscription subscription = observable
                 .subscribeOn(Schedulers.io())
-//                .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber));
+                .subscribe(subscriber);
+        mCompositeSubscription.add(subscription);
+        if (!TextUtils.isEmpty(tag))
+            mSubs.put(tag.hashCode(), subscription);
     }
 
 
     /**
      * just for normal http request
      *
+     * @param tag
      * @param observable
      * @param subscriber
      * @param <T>
      */
-    protected <T> void addSubscriptionNormal(Observable<T> observable, Subscriber<T> subscriber) {
+    protected <T> void addSubscriptionNormal(String tag, Observable<T> observable, Subscriber<T> subscriber) {
         if (mCompositeSubscription == null) {
             mCompositeSubscription = new CompositeSubscription();
         }
-        mCompositeSubscription.add(observable
+        Subscription subscription = observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber));
+                .subscribe(subscriber);
+
+        mCompositeSubscription.add(subscription);
+
+        if (!TextUtils.isEmpty(tag))
+            mSubs.put(tag.hashCode(), subscription);
     }
 
 
@@ -124,7 +145,7 @@ public class BasePresenter<V extends BaseView> implements ProgressCancelListener
 
     @Override
     public void onCancelProgress() {
-        onUnsubscribe();
+        onUnsubscribe(null);
     }
 
     private void showProgressDialog() {
@@ -154,7 +175,7 @@ public class BasePresenter<V extends BaseView> implements ProgressCancelListener
      * @param o
      */
     public <T> void start(Observable<T> o) {
-        addSubscription(o, new FcApiCallback<T>() {
+        addSubscription(null, o, new FcApiCallback<T>() {
 
             @Override
             public void onStart() {
@@ -187,7 +208,7 @@ public class BasePresenter<V extends BaseView> implements ProgressCancelListener
      * @param tag
      */
     public <T> void start(Observable<T> o, final String tag) {
-        addSubscription(o, new FcApiCallback<T>() {
+        addSubscription(tag, o, new FcApiCallback<T>() {
             @Override
             public void onStart() {
                 showProgressDialog();
@@ -218,6 +239,15 @@ public class BasePresenter<V extends BaseView> implements ProgressCancelListener
      * cancel http request and unsubcribe
      */
     public void cancel() {
-        onUnsubscribe();
+        onUnsubscribe(null);
+    }
+
+    /**
+     * cancel http request and unsubcribe
+     *
+     * @param tag
+     */
+    public void cancel(String tag) {
+        onUnsubscribe(tag);
     }
 }
