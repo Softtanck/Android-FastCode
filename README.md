@@ -3,6 +3,8 @@
 # Android-FastCode(Router+Retrofit2.0+RxJava+OkHttp+MVP)
 a fast project for android. the project support intercept activity(Router) and you can custom config your intent rule and support access remote server data convert to gson. you can implement yourself custom progressdialog on requesting data.
 
+[![Build Status](https://travis-ci.org/q422013/Android-FastCode.svg?branch=master)](https://github.com/q422013/Android-FastCode)
+
 # How to use:
 ## App Global
 at app oncreate method add:
