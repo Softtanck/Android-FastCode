@@ -8,3 +8,5 @@ branches:
 only:
     - master
     - stable
+os:
+    -windows
