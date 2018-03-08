@@ -4,6 +4,7 @@
 a fast project for android. the project support intercept activity(Router) and you can custom config your intent rule and support access remote server data convert to gson. you can implement yourself custom progressdialog on requesting data.
 
 [![Build Status](https://travis-ci.org/q422013/Android-FastCode.svg?branch=master)](https://github.com/q422013/Android-FastCode)
+[![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
 
 # How to use:
 ## App Global
